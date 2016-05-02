@@ -1,5 +1,3 @@
-package iitlab2;
-
 import java.io.File;
 
 public class FileWrap {
@@ -7,6 +5,14 @@ public class FileWrap {
 	
 	public FileWrap(File f){
 		this.value=f;
+	}
+
+	public File getAbsoluteFile() {
+		return value.getAbsoluteFile();
+	}
+
+	public String getAbsolutePath() {
+		return value.getAbsolutePath();
 	}
 
 	public boolean isDirectory() {
@@ -27,9 +33,6 @@ public class FileWrap {
 
 	public File[] listFiles() {
 		return value.listFiles();
-	}
-	public String getPath() {
-		return value.getPath();
 	}
 	
 }
