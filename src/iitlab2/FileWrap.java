@@ -1,5 +1,3 @@
-package iitlab2;
-
 import java.io.File;
 
 public class FileWrap {

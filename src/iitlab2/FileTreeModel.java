@@ -1,5 +1,3 @@
-package iitlab2;
-
 import java.util.*;
 import java.io.File;
 
@@ -34,18 +32,12 @@ class FileTreeModel implements TreeModel {
 	}
 
 	public int getChildCount(Object parent) {
-		try {
-			FileWrap fw = (FileWrap) parent;
-			if (fw.isDirectory()) {
-				File[] directoryMembers = fw.listFiles();
-				return directoryMembers.length;
-			} else
-				return 0;
-		} catch (Exception e){
-			System.out.println(e.getMessage());
+		FileWrap fw = (FileWrap) parent;
+		if (fw.isDirectory()) {
+			File[] directoryMembers = fw.listFiles();
+			return directoryMembers.length;
+		} else
 			return 0;
-		}
-
 	}
 
 	public int getIndexOfChild(Object parent, Object child) {
