@@ -15,10 +15,10 @@ class FileTreeModel implements TreeModel {
 	}
 
 	public Object getChild(Object parent, int index) {
-		FileWrap ft = (FileWrap)parent;
-		if (ft==null) 
+		FileWrap file = (FileWrap)parent;
+		if (file==null) 
 			return null;
-		File[] tmp = ft.listFiles();
+		File[] tmp = file.listFiles();
 		Arrays.sort(tmp);
 		FileWrap result = new FileWrap(tmp[index]);
 		return result;
@@ -26,10 +26,10 @@ class FileTreeModel implements TreeModel {
 
 	public int getChildCount(Object parent) {
 		try {
-			FileWrap ft = (FileWrap) parent;
-			if (ft==null || !ft.isDirectory()) 
+			FileWrap file = (FileWrap) parent;
+			if (file==null || !file.isDirectory()) 
 				return 0;
-			File tmp[] = ft.listFiles();
+			File tmp[] = file.listFiles();
 			return tmp.length;
 		} catch (Exception e){
 			System.out.println(e.getMessage());
@@ -39,11 +39,11 @@ class FileTreeModel implements TreeModel {
 	}
 
 	public int getIndexOfChild(Object parent, Object child) {
-		FileWrap ft = (FileWrap) parent;
+		FileWrap file = (FileWrap) parent;
 		FileWrap childwrap = (FileWrap) child;
-		if (ft==null) 
+		if (file==null) 
 			return -1;
-		File[] tmp = ft.listFiles();
+		File[] tmp = file.listFiles();
 		Arrays.sort(tmp);
 		for (int i=0; i<tmp.length; i++){
 			if(childwrap.getPath().equals(tmp[i].getPath()))
@@ -57,8 +57,8 @@ class FileTreeModel implements TreeModel {
 	}
 
 	public void setRoot(String rootName) {
-		this.root = new FileWrap(new File(rootName));
-		FileWrap[] path = { this.root };
+		root = new FileWrap(new File(rootName));
+		FileWrap[] path = { root };
 		TreeModelEvent e = new TreeModelEvent(this, path);
 		for (TreeModelListener tml : listeners) {
 			tml.treeStructureChanged(e);

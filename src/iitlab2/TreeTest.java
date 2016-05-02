@@ -28,8 +28,8 @@ public class TreeTest implements ActionListener {
 	}
 
 	public void run() {
-		JFrame f = new JFrame("Directory list");
-		f.setPreferredSize(new Dimension(500, 500));
+		JFrame frame = new JFrame("Directory list");
+		frame.setPreferredSize(new Dimension(500, 500));
 		comboBox = new JComboBox<String>();
 		Iterable<Path> rootDirectories = FileSystems.getDefault().getRootDirectories();
 		for (Path directory : rootDirectories) {
@@ -42,10 +42,10 @@ public class TreeTest implements ActionListener {
 		tree.setCellRenderer(new FileTreeRenderer());
 		JScrollPane scrollPane = new JScrollPane(tree);
 		comboBox.addActionListener(this);
-		f.add(comboBox, BorderLayout.NORTH);
-		f.add(scrollPane, BorderLayout.CENTER);
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.pack();
-		f.setVisible(true);
+		frame.add(comboBox, BorderLayout.NORTH);
+		frame.add(scrollPane, BorderLayout.CENTER);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.pack();
+		frame.setVisible(true);
 	}
 }
