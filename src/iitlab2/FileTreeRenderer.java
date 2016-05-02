@@ -1,12 +1,14 @@
 package iitlab2;
-import java.util.*;
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.event.*;
-import javax.swing.tree.*;
+import java.awt.Component;
+import javax.swing.JTree;
+import javax.swing.tree.DefaultTreeCellRenderer;
 
 public class FileTreeRenderer extends DefaultTreeCellRenderer {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public Component getTreeCellRendererComponent(
 						JTree tree,
 						Object value,
@@ -21,7 +23,7 @@ public class FileTreeRenderer extends DefaultTreeCellRenderer {
 					expanded, leaf, row,
 					hasFocus);
 		FileWrap ft = (FileWrap) value;
-		setToolTipText("("+ft.length()+")");
+		setToolTipText("("+ft.length()+" B )");
 		return this;
 	}
 }

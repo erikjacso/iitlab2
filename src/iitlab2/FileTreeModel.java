@@ -33,11 +33,17 @@ class FileTreeModel implements TreeModel {
 	}
 
 	public int getChildCount(Object parent) {
-		FileWrap ft = (FileWrap) parent;
-		if (ft==null || !ft.isDirectory()) 
+		try {
+			FileWrap ft = (FileWrap) parent;
+			if (ft==null || !ft.isDirectory()) 
+				return 0;
+			File tmp[] = ft.listFiles();
+			return tmp.length;
+		} catch (Exception e){
+			System.out.println(e.getMessage());
 			return 0;
-		File tmp[] = ft.listFiles();
-		return tmp.length;
+		}
+
 	}
 
 	public int getIndexOfChild(Object parent, Object child) {

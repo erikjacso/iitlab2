@@ -14,12 +14,13 @@ import javax.swing.JTree;
 import javax.swing.ToolTipManager;
 
 public class TreeTest implements ActionListener {
-	JComboBox<String> cb;
-	FileTreeModel ftm;
+	FileTreeModel fileTreeModel;
+	JComboBox<String> comboBox;
+	
 
 	public void actionPerformed(ActionEvent ae) {
-		Object newSelection = cb.getSelectedItem();
-		ftm.setRoot(newSelection.toString());
+		Object newSelection = comboBox.getSelectedItem();
+		fileTreeModel.setRoot(newSelection.toString());
 	}
 
 	static public void main(String args[]) {
@@ -29,22 +30,22 @@ public class TreeTest implements ActionListener {
 	public void run() {
 		JFrame f = new JFrame("Directory list");
 		f.setPreferredSize(new Dimension(500, 500));
-		cb = new JComboBox<String>();
+		comboBox = new JComboBox<String>();
 		Iterable<Path> rootDirs = FileSystems.getDefault().getRootDirectories();
 		for (Path dir : rootDirs) {
-			cb.addItem(dir.toString());
+			comboBox.addItem(dir.toString());
 		}
-		ftm = new FileTreeModel();
-		ftm.setRoot(cb.getItemAt(0));
-		JTree tree = new JTree(ftm);
+		fileTreeModel = new FileTreeModel();
+		fileTreeModel.setRoot(comboBox.getItemAt(0));
+		JTree tree = new JTree(fileTreeModel);
 		ToolTipManager.sharedInstance().registerComponent(tree);
 		tree.setCellRenderer(new FileTreeRenderer());
 		JScrollPane scrollPane = new JScrollPane(tree);
-		cb.addActionListener(this);
-		f.add(cb, BorderLayout.NORTH);
+		comboBox.addActionListener(this);
+		f.add(comboBox, BorderLayout.NORTH);
 		f.add(scrollPane, BorderLayout.CENTER);
-		f.setDefaultCloseOperation(f.EXIT_ON_CLOSE);
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.pack();
-		f.show();
+		f.setVisible(true);
 	}
 }
