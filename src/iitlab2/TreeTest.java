@@ -31,9 +31,9 @@ public class TreeTest implements ActionListener {
 		JFrame f = new JFrame("Directory list");
 		f.setPreferredSize(new Dimension(500, 500));
 		comboBox = new JComboBox<String>();
-		Iterable<Path> rootDirs = FileSystems.getDefault().getRootDirectories();
-		for (Path dir : rootDirs) {
-			comboBox.addItem(dir.toString());
+		Iterable<Path> rootDirectories = FileSystems.getDefault().getRootDirectories();
+		for (Path directory : rootDirectories) {
+			comboBox.addItem(directory.toString());
 		}
 		fileTreeModel = new FileTreeModel();
 		fileTreeModel.setRoot(comboBox.getItemAt(0));

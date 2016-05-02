@@ -3,33 +3,34 @@ package iitlab2;
 import java.io.File;
 
 public class FileWrap {
-	private File value;
+	private File file;
 	
 	public FileWrap(File f){
-		this.value=f;
+		this.file=f;
 	}
 
 	public boolean isDirectory() {
-		return value.isDirectory();
+		return file.isDirectory();
 	}
-
-	public boolean isFile() {
-		return value.isFile();
-	}
-
+	
 	public long length() {
-		return value.length();
+		return file.length();
 	}
 
 	public String toString() {
-		return value.getName();
+		return file.getName();
 	}
 
 	public File[] listFiles() {
-		return value.listFiles();
+		return file.listFiles();
 	}
 	public String getPath() {
-		return value.getPath();
+		return file.getPath();
 	}
+
+	public boolean isFile() {
+		return file.isFile();
+	}
+
 	
 }
