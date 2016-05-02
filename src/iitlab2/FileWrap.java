@@ -9,14 +9,6 @@ public class FileWrap {
 		this.value=f;
 	}
 
-	public File getAbsoluteFile() {
-		return value.getAbsoluteFile();
-	}
-
-	public String getAbsolutePath() {
-		return value.getAbsolutePath();
-	}
-
 	public boolean isDirectory() {
 		return value.isDirectory();
 	}
@@ -35,6 +27,9 @@ public class FileWrap {
 
 	public File[] listFiles() {
 		return value.listFiles();
+	}
+	public String getPath() {
+		return value.getPath();
 	}
 	
 }

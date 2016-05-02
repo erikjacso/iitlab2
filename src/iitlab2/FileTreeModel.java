@@ -23,37 +23,35 @@ class FileTreeModel implements TreeModel {
 	}
 
 	public Object getChild(Object parent, int index) {
-		FileWrap p = (FileWrap) parent;
-		File[] dm = p.listFiles();
-		Arrays.sort(dm);
-		FileWrap[] wraps = new FileWrap[dm.length];
-		for (int i = 0; i < dm.length; i++) {
-			wraps[i] = new FileWrap(dm[i]);
-		}
-		return wraps[index];
+		FileWrap ft = (FileWrap)parent;
+		if (ft==null) 
+			return null;
+		File[] tmp = ft.listFiles();
+		Arrays.sort(tmp);
+		FileWrap result = new FileWrap(tmp[index]);
+		return result;
 	}
 
 	public int getChildCount(Object parent) {
-		FileWrap fw = (FileWrap) parent;
-		if (fw.isDirectory()) {
-			File[] directoryMembers = fw.listFiles();
-			return directoryMembers.length;
-		} else
+		FileWrap ft = (FileWrap) parent;
+		if (ft==null || !ft.isDirectory()) 
 			return 0;
+		File tmp[] = ft.listFiles();
+		return tmp.length;
 	}
 
 	public int getIndexOfChild(Object parent, Object child) {
-		FileWrap parentFW = (FileWrap) parent;
-		FileWrap childFW = (FileWrap) child;
-		File[] members = parentFW.listFiles();
-		int index = -1;
-		for (int i = 0; i < members.length; i++) {
-			if (members[i].getAbsoluteFile().equals(childFW.getAbsoluteFile())) {
-				index = i;
-				break;
-			}
+		FileWrap ft = (FileWrap) parent;
+		FileWrap childwrap = (FileWrap) child;
+		if (ft==null) 
+			return -1;
+		File[] tmp = ft.listFiles();
+		Arrays.sort(tmp);
+		for (int i=0; i<tmp.length; i++){
+			if(childwrap.getPath().equals(tmp[i].getPath()))
+				return i;
 		}
-		return index;
+		return 0;
 	}
 
 	public FileWrap getRoot() {
@@ -70,7 +68,10 @@ class FileTreeModel implements TreeModel {
 	}
 
 	public boolean isLeaf(Object node) {
-		return ((FileWrap) node).isFile();
+		FileWrap ft = (FileWrap)node;
+		if (ft.isDirectory())
+			return false;
+		return true;
 	}
 
 	public void valueForPathChanged(TreePath path, Object newValue) {
