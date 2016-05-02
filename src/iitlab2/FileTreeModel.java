@@ -14,14 +14,6 @@ class FileTreeModel implements TreeModel {
 		listeners = new ArrayList<TreeModelListener>();
 	}
 
-	public void addTreeModelListener(TreeModelListener l) {
-		listeners.add(l);
-	}
-
-	public void removeTreeModelListener(TreeModelListener l) {
-		listeners.remove(l);
-	}
-
 	public Object getChild(Object parent, int index) {
 		FileWrap ft = (FileWrap)parent;
 		if (ft==null) 
@@ -80,7 +72,19 @@ class FileTreeModel implements TreeModel {
 		return true;
 	}
 
+	@Override
+	public void addTreeModelListener(TreeModelListener l) {
+		listeners.add(l);
+	}
+
+	@Override
+	public void removeTreeModelListener(TreeModelListener l) {
+		listeners.remove(l);
+	}
+	
+	@Override
 	public void valueForPathChanged(TreePath path, Object newValue) {
+		
 	}
 
 }
