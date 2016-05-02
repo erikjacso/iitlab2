@@ -4,15 +4,15 @@ import java.io.File;
 
 public class FileWrap {
 	private File file;
-	
-	public FileWrap(File f){
-		this.file=f;
+
+	public FileWrap(File f) {
+		this.file = f;
 	}
 
 	public boolean isDirectory() {
 		return file.isDirectory();
 	}
-	
+
 	public long length() {
 		return file.length();
 	}
@@ -24,6 +24,7 @@ public class FileWrap {
 	public File[] listFiles() {
 		return file.listFiles();
 	}
+
 	public String getPath() {
 		return file.getPath();
 	}
@@ -32,5 +33,4 @@ public class FileWrap {
 		return file.isFile();
 	}
 
-	
 }

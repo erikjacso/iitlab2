@@ -16,7 +16,6 @@ import javax.swing.ToolTipManager;
 public class TreeTest implements ActionListener {
 	FileTreeModel fileTreeModel;
 	JComboBox<String> comboBox;
-	
 
 	public void actionPerformed(ActionEvent ae) {
 		Object newSelection = comboBox.getSelectedItem();

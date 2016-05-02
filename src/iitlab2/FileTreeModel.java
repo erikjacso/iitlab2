@@ -15,8 +15,8 @@ class FileTreeModel implements TreeModel {
 	}
 
 	public Object getChild(Object parent, int index) {
-		FileWrap file = (FileWrap)parent;
-		if (file==null) 
+		FileWrap file = (FileWrap) parent;
+		if (file == null)
 			return null;
 		File[] tmp = file.listFiles();
 		Arrays.sort(tmp);
@@ -27,11 +27,11 @@ class FileTreeModel implements TreeModel {
 	public int getChildCount(Object parent) {
 		try {
 			FileWrap file = (FileWrap) parent;
-			if (file==null || !file.isDirectory()) 
+			if (file == null || !file.isDirectory())
 				return 0;
 			File tmp[] = file.listFiles();
 			return tmp.length;
-		} catch (Exception e){
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return 0;
 		}
@@ -41,12 +41,12 @@ class FileTreeModel implements TreeModel {
 	public int getIndexOfChild(Object parent, Object child) {
 		FileWrap file = (FileWrap) parent;
 		FileWrap childwrap = (FileWrap) child;
-		if (file==null) 
+		if (file == null)
 			return -1;
 		File[] tmp = file.listFiles();
 		Arrays.sort(tmp);
-		for (int i=0; i<tmp.length; i++){
-			if(childwrap.getPath().equals(tmp[i].getPath()))
+		for (int i = 0; i < tmp.length; i++) {
+			if (childwrap.getPath().equals(tmp[i].getPath()))
 				return i;
 		}
 		return 0;
@@ -66,7 +66,7 @@ class FileTreeModel implements TreeModel {
 	}
 
 	public boolean isLeaf(Object node) {
-		FileWrap ft = (FileWrap)node;
+		FileWrap ft = (FileWrap) node;
 		if (ft.isDirectory())
 			return false;
 		return true;
@@ -81,10 +81,10 @@ class FileTreeModel implements TreeModel {
 	public void removeTreeModelListener(TreeModelListener l) {
 		listeners.remove(l);
 	}
-	
+
 	@Override
 	public void valueForPathChanged(TreePath path, Object newValue) {
-		
+
 	}
 
 }
