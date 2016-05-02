@@ -6,14 +6,27 @@ import javax.swing.tree.*;
 
 class FileTreeRenderer extends DefaultTreeCellRenderer {
 
-	public Component getTreeCellRendererComponent(JTree tree, Object value,
-			boolean sel, boolean expanded, boolean leaf, int row,
-			boolean hasFocus) {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8688598660161050823L;
 
-		super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf,
-				row, hasFocus);
-		FileWrap fw = (FileWrap) value;
-		setToolTipText("(" + fw.length() + " bytes )");
-		return this;
+    public Component getTreeCellRendererComponent(
+            JTree tree,
+            Object value,
+            boolean sel,
+            boolean expanded,
+            boolean leaf,
+            int row,
+            boolean hasFocus) {
+
+        super.getTreeCellRendererComponent(
+                tree, value, sel,
+                expanded, leaf, row,
+                hasFocus);
+        
+		FileWrap fileWrap = (FileWrap) value;
+		setToolTipText("(" + fileWrap.length() + " bytes )");
+			return this;
 	}
 }
