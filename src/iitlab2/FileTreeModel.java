@@ -1,88 +1,79 @@
 package iitlab2;
 
+import java.util.*;
 import java.io.File;
-import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.Arrays;
 
-import javax.swing.event.TreeModelListener;
-import javax.swing.tree.TreeModel;
-import javax.swing.tree.TreePath;
+import javax.swing.event.*;
+import javax.swing.tree.*;
 
-public class FileTreeModel implements TreeModel{
-	FileWrap root;
+class FileTreeModel implements TreeModel {
 	ArrayList<TreeModelListener> listeners;
-	
-	public FileTreeModel(){
+	FileWrap root;
+
+	public FileTreeModel() {
 		listeners = new ArrayList<TreeModelListener>();
 	}
 
-	@Override
 	public void addTreeModelListener(TreeModelListener l) {
 		listeners.add(l);
-		
 	}
-	@Override
+
+	public void removeTreeModelListener(TreeModelListener l) {
+		listeners.remove(l);
+	}
+
 	public Object getChild(Object parent, int index) {
-		FileWrap ft = (FileWrap)parent;
-		if (ft==null) 
-			return null;
-		File[] tmp = ft.listFiles();
-		Arrays.sort(tmp);
-		FileWrap result = new FileWrap(tmp[index]);
-		return result;
-	}
-
-	@Override
-	public int getChildCount(Object parent) {
-		FileWrap ft = (FileWrap) parent;
-		if (ft==null || !ft.isDirectory()) 
-			return 0;
-		File tmp[] = ft.listFiles();
-		return tmp.length;
-	}
-
-	@Override
-	public int getIndexOfChild(Object parent, Object child) {
-		FileWrap ft = (FileWrap) parent;
-		FileWrap childwrap = (FileWrap) child;
-		if (ft==null) 
-			return -1;
-		File[] tmp = ft.listFiles();
-		Arrays.sort(tmp);
-		for (int i=0; i<tmp.length; i++){
-			if(childwrap.getPath().equals(tmp[i].getPath()))
-				return i;
+		FileWrap p = (FileWrap) parent;
+		File[] dm = p.listFiles();
+		Arrays.sort(dm);
+		FileWrap[] wraps = new FileWrap[dm.length];
+		for (int i = 0; i < dm.length; i++) {
+			wraps[i] = new FileWrap(dm[i]);
 		}
-		return 0;
+		return wraps[index];
 	}
 
-	@Override
-	public Object getRoot() {
+	public int getChildCount(Object parent) {
+		FileWrap fw = (FileWrap) parent;
+		if (fw.isDirectory()) {
+			File[] directoryMembers = fw.listFiles();
+			return directoryMembers.length;
+		} else
+			return 0;
+	}
+
+	public int getIndexOfChild(Object parent, Object child) {
+		FileWrap parentFW = (FileWrap) parent;
+		FileWrap childFW = (FileWrap) child;
+		File[] members = parentFW.listFiles();
+		int index = -1;
+		for (int i = 0; i < members.length; i++) {
+			if (members[i].getAbsoluteFile().equals(childFW.getAbsoluteFile())) {
+				index = i;
+				break;
+			}
+		}
+		return index;
+	}
+
+	public FileWrap getRoot() {
 		return root;
 	}
 
-	@Override
+	public void setRoot(String rootName) {
+		this.root = new FileWrap(new File(rootName));
+		FileWrap[] path = { this.root };
+		TreeModelEvent e = new TreeModelEvent(this, path);
+		for (TreeModelListener tml : listeners) {
+			tml.treeStructureChanged(e);
+		}
+	}
+
 	public boolean isLeaf(Object node) {
-		FileWrap ft = (FileWrap)node;
-		if (ft.isDirectory())
-			return false;
-		return true;
+		return ((FileWrap) node).isFile();
 	}
 
-	@Override
-	public void removeTreeModelListener(TreeModelListener l) {
-		listeners.remove(l);
-		
-	}
-
-	@Override
 	public void valueForPathChanged(TreePath path, Object newValue) {
-		// TODO Auto-generated method stub
-		
-	}
-	public void setRoot(FileWrap f){
-		
 	}
 
 }
